@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Mandate Tracker</title>
+	<!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+	<meta http-equiv="Content-Security-Policy" />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	<script src="https://use.fontawesome.com/175ed84f2f.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+
+	<script defer src="script.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="main">
+		<div class="icon">
+			<img src="https://svgshare.com/i/JC_.svg" width="700">
+		</div>
+		<div class="title">
+			<p class="head">Mandate Tracker</p>
+			<p class="tag">Your personal mandate tracker now equipped with Cloud Storage!</p>
+		</div>
+		<div class="close" onclick="window.close()">
+			<img src="https://svgshare.com/i/JCU.svg" width="600">
+		</div>
+	</div>
+	<div class="container">
+		<div class="new-item new-item-c" id="new">
+			<div class="heading">
+				<div class="text">Add new Mandate</div>
+				<div class="icon" onclick="canMandate()"><i class="fa fa-times"></i></div>
+				<div class="icon" onclick="regMandate()"><i class="fa fa-plus"></i></div>
+			</div>
+			<div class="datum">
+				<span class="title">Client Organization</span>
+				<input type="text" id="a">
+			</div>
+			<div class="datum">
+				<span class="title">Position</span>
+				<input type="text" id="b">
+			</div>
+			<div class="datum">
+				<span class="title">Date of Position</span>
+				<input type="date" id="c">
+			</div>
+			<div class="datum">
+				<span class="title">Number of Positions</span>
+				<input type="number" id="d">
+			</div>
+			<div class="datum">
+				<span class="title">CTC</span>
+				<input type="number" step="0.01" id="e">
+			</div>
+			<div class="datum">
+				<span class="title">Date of Joining</span>
+				<input type="date" id="f">
+			</div>
+			<div class="datum">
+				<span class="title">Value</span>
+				<input type="number" step="0.01" id="g">
+			</div>
+			<div class="datum">
+				<span class="title">Status</span>
+				<select id="h">
+					<option value="New Mandate">New Mandate</option>
+					<option value="Extracting profiles">Extracting profiles</option>
+					<option value="CVs sent">CVs sent</option>
+					<option value="Closed">Closed</option>
+				</select>
+			</div>
+		</div>
+		<div class="login" id="login">
+			<div class="button facebook">
+				<div class="icon"></div>
+				<div class="text">Sign In</div>
+			</div>
+			<div class="button google" onclick="signIn()">
+				<div class="icon"></div>
+				<div class="text" id="google">Sign In</div>
+			</div>
+		</div>
+		<div class="data data-c" id="data">
+			<div class="headers">
+				<div class="org">Client Organisation</div>
+				<div class="pos">Position</div>
+				<div class="ctc">CTC</div>
+				<div class="sus">Status</div>
+				<div class="rmv" onclick="addMandate()"><i class="fa fa-plus"></i></div>
+			</div>
+			<div class="records">
+				<div class="item">
+					<div class="over">
+						<div class="org">{{ x.org }}</div>
+						<div class="pos">{{ x.pos }}</div>
+						<div class="ctc">{{ x.ctc }}</div>
+						<div class="sus">{{ x.sus }}</div>
+					</div>
+					<div class="rmv"><i class="fa fa-times"></i></div>
+					<div class="under">
+						<div class="dat"><span>Date:</span>{{ x.dat }}</div>
+						<div class="nop"><span>No. of positions:</span>{{ x.nop }}</div>
+						<div class="doj"><span>Date of Joining:</span>{{ x.doj || '-' }}</div>
+						<div class="val"><span>Value:</span>{{ x.val || '-' }}</div>
+					</div>
+					<div class="rmv"><i class="fa fa-pencil"></i></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="ref">Made with <img src="https://bit.ly/39ZoGSe" width="200"></div>
+		<div class="links">	
+			<div title="View Source"><i class="fa fa-code"></i></div>
+			<div title="FAQ"><i class="fa fa-question"></i></div>
+			<div title="Contact"><i class="fa fa-phone"></i></div>
+			<div title="About"><i class="fa fa-info"></i></div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+<!-- 
+	TASKS REMAINING
+	- Make 'add' button functional
+	- Make Search bar functional
+	-- setup OAuth
+	-- Connect data to Firebase
+	- Export project
+-->
+
+
